@@ -32,11 +32,12 @@ class api():
         return html
 
     def search(self,title):
-        cursor.execute("select * from meetings where title='{}' group by date".format(title))
-        results= cursor.fetchall()
-        html =""
-        if len(results)!=0:
-            for i in results:
+        try:
+            cursor.execute("select * from meetings where title='{}' group by date".format(title))
+            results= cursor.fetchall()
+            html =""
+            if len(results)!=0:
+                for i in results:
                 html+='''
                     <div class="meeting">
                         <div class="body">
@@ -57,26 +58,38 @@ class api():
                 '''.format(i[3],i[0],i[3],i[1],i[3],i[2],i[3],i[0],i[1],i[2],i[3])
 
         return html
+    
         
     
         
 
     def update(self,id,title,date,time):
-        print("Meeting updated!")
-        
-
-        cursor.execute("update meetings set title='{}',date='{}',time='{}' where id='{}'".format(title,date,time,id))
-        db.commit()
+        try:
+            print("Meeting updated!")
+            cursor.execute("update meetings set title='{}',date='{}',time='{}' where id='{}'".format(title,date,time,id))
+            db.commit()
+        except Exception as e:
+               print(e)
 
     def delete(self,id):
-        print("Meeting Deleted")
-        cursor.execute("delete from meetings where id='{}'".format(id))
-        db.commit()
+        try:
+            print("Meeting Deleted")
+            cursor.execute("delete from meetings where id='{}'".format(id))
+            db.commit()
+            
+        except Exception as e:
+               print(e)
 
     def addmeet(title,date,time):
-        id = uuid.uuid4()
-        cursor.execute("insert into meetings values('{}','{}','{}','{}')".format(title,date,time,id))
-        db.commit()
+        try:
+            id = uuid.uuid4()
+            cursor.execute("insert into meetings values('{}','{}','{}','{}')".format(title,date,time,id))
+            db.commit()
+            
+           except Exception as e:
+               print(e)
+            
+        
 api = api()
 ht = ''
 with open('inshal.html', 'r') as f:
