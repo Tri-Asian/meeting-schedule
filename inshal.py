@@ -30,8 +30,8 @@ class api():
                 '''.format(i[3],i[0],i[3],i[1],i[3],i[2],i[3],i[0],i[1],i[2],i[3])
 
         return html
-    except Exception as e:
-        print(e)
+        except Exception as e:
+            print(e)
 
     def search(self,title):
         try:
