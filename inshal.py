@@ -5,12 +5,13 @@ db = sql.connect(host="localhost",user="root",password="2005",database="meeting"
 cursor = db.cursor()
 class api():
     def display(self):
-        cursor.execute("select * from meetings group by date")
-        results= cursor.fetchall()
-        html =""
-        if len(results)!=0:
-            for i in results:
-                html+='''
+        try:
+            cursor.execute("select * from meetings group by date")
+            results= cursor.fetchall()
+            html =""
+            if len(results)!=0:
+                for i in results:
+                    html+='''
                     <div class="meeting">
                         <div class="body">
                             <h3 class="title" id="title-{}" contenteditable="true">{}</h3>
@@ -29,7 +30,7 @@ class api():
                 
                 '''.format(i[3],i[0],i[3],i[1],i[3],i[2],i[3],i[0],i[1],i[2],i[3])
 
-        return html
+            return html
         except Exception as e:
             print(e)
 
@@ -40,7 +41,7 @@ class api():
             html =""
             if len(results)!=0:
                 for i in results:
-                html+='''
+                    html+='''
                     <div class="meeting">
                         <div class="body">
                             <h3 class="title" id="title-{}" contenteditable="true">{}</h3>
@@ -59,7 +60,7 @@ class api():
                 
                 '''.format(i[3],i[0],i[3],i[1],i[3],i[2],i[3],i[0],i[1],i[2],i[3])
 
-        return html
+            return html
     
         except Exception as e:
             print(e)
