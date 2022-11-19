@@ -30,6 +30,8 @@ class api():
                 '''.format(i[3],i[0],i[3],i[1],i[3],i[2],i[3],i[0],i[1],i[2],i[3])
 
         return html
+    except Exception as e:
+        print(e)
 
     def search(self,title):
         try:
@@ -59,7 +61,8 @@ class api():
 
         return html
     
-        
+        except Exception as e:
+            print(e)
     
         
 
@@ -69,7 +72,7 @@ class api():
             cursor.execute("update meetings set title='{}',date='{}',time='{}' where id='{}'".format(title,date,time,id))
             db.commit()
         except Exception as e:
-               print(e)
+            print(e)
 
     def delete(self,id):
         try:
@@ -78,7 +81,7 @@ class api():
             db.commit()
             
         except Exception as e:
-               print(e)
+            print(e)
 
     def addmeet(title,date,time):
         try:
@@ -86,8 +89,8 @@ class api():
             cursor.execute("insert into meetings values('{}','{}','{}','{}')".format(title,date,time,id))
             db.commit()
             
-           except Exception as e:
-               print(e)
+        except Exception as e:
+            print(e)
             
         
 api = api()
