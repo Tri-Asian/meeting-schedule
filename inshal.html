@@ -11,7 +11,7 @@
         <h2>Current Schedules</h2>
 
         <center>
-            <input oninput="pywebview.api.search(this.value)" type="text" class="search" placeholder="Search By Meeting Title">
+            <input id ="sinput" oninput="search()" type="text" class="search" placeholder="Search By Meeting Title">
         </center>
 
         <div class="schedules" id="schedules">
@@ -135,6 +135,9 @@
             time=prompt("Meeting Time(hh:mm:ss am/pm)")
             pywebview.api.addmeet(title,date,time)
             setTimeout(pywebview.api.display().then(display),1000)
+        }
+        function search(){
+            pywebview.api.search(document.getElementById('sinput').value)
         }
     </script>
 
