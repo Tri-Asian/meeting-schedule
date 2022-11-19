@@ -1,9 +1,11 @@
 import webview
 import uuid
 import mysql.connector as sql
-db = sql.connect(host="localhost",user="root",password="2005",database="meeting")
-cursor = db.cursor()
+
 class api():
+    db = sql.connect(host="localhost",user="root",password="2005",database="meeting")
+    cursor = db.cursor()
+    global db,cursor
     def display(self):
         try:
             cursor.execute("select * from meetings group by date")
