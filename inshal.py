@@ -110,4 +110,4 @@ ht = ''
 with open('inshal.html', 'r') as f:
     ht = str(f.read())
 window = webview.create_window('Computer Project', html=ht, js_api=api)
-webview.start(debug=True,gui='edgehtml')
+webview.start(debug=True)
