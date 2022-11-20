@@ -101,6 +101,10 @@
             pywebview.api.display().then(display)
     })
 
+        function search(){
+            pywebview.api.search(document.getElementById("sinput").value).then(display)
+        }
+
         function display(html){
             document.getElementById("schedules").innerHTML=html
         }
@@ -126,18 +130,15 @@
         }
         
         function deleted(id){
-            pywebview.api.update(id)
+            pywebview.api.delete(id)
             setTimeout(pywebview.api.display().then(display),1000)
         }
         function addmeet(){
             title=prompt("Meeting Title")
-            date=prompt("Meeting Date(yyyy:mm:dd)")
+            date=prompt("Meeting Date(yyyy-mm-dd)")
             time=prompt("Meeting Time(hh:mm:ss am/pm)")
             pywebview.api.addmeet(title,date,time)
             setTimeout(pywebview.api.display().then(display),1000)
-        }
-        function search(){
-            pywebview.api.search(document.getElementById('sinput').value)
         }
     </script>
 
