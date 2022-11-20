@@ -3,10 +3,11 @@ import uuid
 import mysql.connector as sql
 
 class api():
+    global db,cursor
     db = sql.connect(host="localhost",user="root",password="2005",database="meeting")
     cursor = db.cursor()
-    global db,cursor
     def display(self):
+        global db,cursor
         try:
             cursor.execute("select * from meetings group by date")
             results= cursor.fetchall()
@@ -37,9 +38,14 @@ class api():
             print(e)
 
     def search(self,title):
+        global db,cursor
+        print(title)
         try:
-            cursor.execute("select * from meetings where title='{}' group by date".format(title))
+            q="select * from meetings where title like '{}%' group by date".format(title)
+            print(q)
+            cursor.execute(q)
             results= cursor.fetchall()
+            print(results)
             html =""
             if len(results)!=0:
                 for i in results:
@@ -70,14 +76,16 @@ class api():
         
 
     def update(self,id,title,date,time):
+        global db,cursor
         try:
-            print("Meeting updated!")
+            print(id,time,date,title)
             cursor.execute("update meetings set title='{}',date='{}',time='{}' where id='{}'".format(title,date,time,id))
             db.commit()
         except Exception as e:
             print(e)
 
     def delete(self,id):
+        global db,cursor
         try:
             print("Meeting Deleted")
             cursor.execute("delete from meetings where id='{}'".format(id))
@@ -87,6 +95,7 @@ class api():
             print(e)
 
     def addmeet(title,date,time):
+        global db,cursor
         try:
             id = uuid.uuid4()
             cursor.execute("insert into meetings values('{}','{}','{}','{}')".format(title,date,time,id))
@@ -101,4 +110,4 @@ ht = ''
 with open('inshal.html', 'r') as f:
     ht = str(f.read())
 window = webview.create_window('Computer Project', html=ht, js_api=api)
-webview.start(debug=True)
+webview.start(debug=True,gui='edgehtml')
