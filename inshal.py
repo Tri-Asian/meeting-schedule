@@ -1,6 +1,8 @@
 import webview
 import uuid
 import mysql.connector as sql
+import sched, time
+from win10toast import ToastNotifier
 
 class api():
     global db,cursor
@@ -103,6 +105,17 @@ class api():
             
         except Exception as e:
             print(e)
+    s = sched.scheduler(time.time, time.sleep)
+    def check_time(sc): 
+        mycursor.execute("select * from meetings")
+        d=mycursor.fetchall()
+        for i in d:
+
+        sc.enter(60, 1, check_time, (sc,))
+    sc.enter(60, 1, check_time, (sc,))
+
+s.enter(60, 1, do_something, (s,))
+s.run()
             
         
 api = api()
